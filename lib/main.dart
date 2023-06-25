@@ -24,25 +24,29 @@ class XylophoneApp extends StatelessWidget {
     player.play('note${soundNumber + 1}.wav');
   }
 
+  Expanded createKey({required Color color, required int soundNumber}){
+    return Expanded(
+      child: TextButton(
+        style: TextButton.styleFrom(backgroundColor: color),
+        child: const Text(''),
+        onPressed: (){
+          playSound(soundNumber);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
             children: [
               for (var i = 0; i < colors.length; i++)
-                Expanded(
-                  child: TextButton(
-                    style: TextButton.styleFrom(backgroundColor: colors[i]),
-                    child: const Text(''),
-                    onPressed: (){
-                      playSound(i);
-                    },
-                  ),
-                ),
+                createKey(color: colors[i], soundNumber: i+1),
             ],
           ),
         ),
